@@ -25,4 +25,10 @@ class ActivityComponent extends Component {
             $file->saveAs('images/'.$file->baseName.'.'.$file->extension);
         }
     }
+    public function getCreateActivity(Activity &$model) {
+        $model->dateStart = \Yii::$app->request->get('date');
+        $model->timeStart = '08:00';   
+        $model->dateFinish = \Yii::$app->request->get('date');
+        $model->timeFinish = '09:00';
+    }
 }
