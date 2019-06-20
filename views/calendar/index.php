@@ -31,7 +31,7 @@ use yii\bootstrap\ActiveForm;
         <?php $date=date('Y-m-d',strtotime("$year-$month-$val"))==date('Y-m-d')?'active-date-square':'';?>
         <?="
         <div class='current month $date'>
-        <a class='month-link' href='../day?date=$model->date'>
+        <a class='month-link' href='../day?date=$year-$month-$val'>
         <span>$dayName
         </span>
         <span>$val</span>
