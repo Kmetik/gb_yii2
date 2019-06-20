@@ -29,12 +29,15 @@ use yii\bootstrap\ActiveForm;
         $month = $grid['current']['month'];
         $dayName = \Yii::$app->formatter->asDate("$year-$month-$val",'php:D');?>
         <?php $date=date('Y-m-d',strtotime("$year-$month-$val"))==date('Y-m-d')?'active-date-square':'';?>
-        <?="<div class='current month $date'>
+        <?="
+        <div class='current month $date'>
+        <a class='month-link' href='../day?date=$model->date'>
         <span>$dayName
         </span>
         <span>$val</span>
-        <a class='month-link' href='../activity/create?date=$model->date'>Добавить задачу</a>
-        </div>"?>
+        </a>
+        </div>
+        "?>
     <?php endforeach;?>
     
     <?php if(isset($grid['next'])) foreach($grid['next']['days'] as $key => $val):?>
