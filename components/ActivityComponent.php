@@ -26,9 +26,9 @@ class ActivityComponent extends Component {
         }
     }
     public function getCreateActivity(Activity &$model) {
-        $model->dateStart = \Yii::$app->request->get('date');
+        $model->dateStart = \Yii::$app->request->get('date')?$model->dateStart = \Yii::$app->request->get('date'):date('Y-m-d');
         $model->timeStart = '08:00';   
-        $model->dateFinish = \Yii::$app->request->get('date');
+        $model->dateFinish = \Yii::$app->request->get('date')?$model->dateStart = \Yii::$app->request->get('date'):date('Y-m-d');
         $model->timeFinish = '09:00';
     }
 }
