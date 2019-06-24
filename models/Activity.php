@@ -1,24 +1,14 @@
 <?php
 namespace app\models;
 
-use yii\base\Model;
+
 use app\models\validations\DateCompareValidation;
 
 
-class Activity extends Model{
-    public $title;
-    public $description;
-    public $dateStart;
-    public $timeStart;
-    public $dateFinish;
-    public $timeFinish;
-    public $isBlocked;
-    public $isRepeat;
-    public $useNotification;
-    public $dayType;
-    public $repeatType;
+class Activity extends ActivitiesBase {
+    
     public $email;
-    public $userFiles;
+    
     public const REPEAT_TYPE=['1d'=>'каждый день','1w'=>'каждую неделю', '1m'=>'каждый месяц']; 
 
     public function beforeValidate()
@@ -38,7 +28,7 @@ class Activity extends Model{
     }
 
     public function rules(){
-        return [
+        return array_merge([
             ['title','string','min'=>5, 'max'=>255],
             ['title','trim'],
             ['dateStart','required'],
@@ -63,7 +53,7 @@ class Activity extends Model{
             }],
             [['userFiles'],'file','extensions'=>['jpg','png'],'maxFiles'=>3],
             ['repeatType','in','range'=>array_keys(self::REPEAT_TYPE)]
-        ];
+        ],parent::rules());
     }
     public function attributeLabels()
     {

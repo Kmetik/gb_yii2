@@ -16,7 +16,7 @@ class m190619_050428_CreateTables extends Migration
         $this->createTable('users',[
             'id'=>$this->primaryKey(),
             'email'=>$this->string(55)->notNull()->unique(),
-            'password_hash'=>$this->string(300)->notNull(),
+            'password_hash'=>$this->string(255)->notNull(),
             'role'=>$this->integer()->defaultValue(0),
             'auth_token'=>$this->string(300),
             'auth_key'=>$this->string(300),

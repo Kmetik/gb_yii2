@@ -23,7 +23,7 @@
       <td><?=$activity['dateFinish']?> <?=$activity['timeFinish']?></td>
       <td><?=$activity['description']?></td>
       <th scope="row">
-                <a href="#" class="card-link">Изменить</a>
+                <a href=<?="../activity/edit?id=". $activity['id'];?> class="card-link">Изменить</a>
                 <a href="#" class="card-link">Завершить</a>
         </th>
     </tr>

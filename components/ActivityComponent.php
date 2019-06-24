@@ -1,21 +1,18 @@
 <?php
 namespace app\components;
 
-use yii\base\Component;
+
 use app\models\Activity;
 use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
+use app\base\BaseComponent;
 
-class ActivityComponent extends Component {
+class ActivityComponent extends BaseComponent {
     
-    public $modelClass;
-
-    public function getModel(){
-        return new $this->modelClass;
-    }
     public function createActivity(Activity &$model){
         $model->userFiles=UploadedFile::getInstances($model,'userFiles');
         if($model->validate() && $this->upload($model)) {
+            $model->save();
             return true;
         } else return false;
     }
@@ -30,5 +27,17 @@ class ActivityComponent extends Component {
         $model->timeStart = '08:00';   
         $model->dateFinish = \Yii::$app->request->get('date')?$model->dateStart = \Yii::$app->request->get('date'):date('Y-m-d');
         $model->timeFinish = '09:00';
+    }
+
+    public function getActivityById($id){
+        return Activity::find()->andWhere(['id'=>$id])->one();
+    }
+
+    public function getActivityByDate($date){
+        return Activity::find()->andWhere(['dateStart'=>$date, 'user_id'=>\Yii::$app->user->getId()])->all();
+    }
+    
+    public function editActivity($id){
+        return Activity::find()->andWhere(['id'=>$id])->one();
     }
 }

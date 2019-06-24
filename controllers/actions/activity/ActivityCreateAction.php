@@ -1,15 +1,22 @@
 <?php
-namespace app\controllers\actions;
+
+namespace app\controllers\actions\activity;
 
 use yii\base\Action;
 use app\components\ActivityComponent;
 use yii\web\Response as YiiResponse;
 use yii\widgets\ActiveForm;
+use yii\web\HttpException;
 
 class ActivityCreateAction extends Action {
     public $name;
     public function run(){
-        $comp = \Yii::createObject(['class'=>ActivityComponent::class, 'modelClass'=>'app\models\Activity']);
+
+        if(!\Yii::$app->rbac->canCreateActivity()){
+            throw new HttpException(403,'не авторизован');
+        }
+
+        $comp = \Yii::createObject(['class'=>ActivityComponent::class, 'model'=>'app\models\Activity']);
         $model = $comp->getModel();
         if(\Yii::$app->request->isPost){
             $model->load(\Yii::$app->request->post());

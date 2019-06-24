@@ -62,7 +62,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         
-        return $this->redirect('../calendar',301);
+        return $this->render('index');
     }
 
     /**

@@ -2,16 +2,10 @@
 
 namespace app\components;
 
-use yii\base\Component;
-use yii\db\Connection;
+use app\base\BaseComponent;
 
-class DaoComponent extends Component {
-    public $connection;
-
-    public function init(){
-        $this->connection=\Yii::$app->db;
-        parent::init();
-    }
+class DaoComponent extends BaseComponent {
+    
     public function getUserActivities($user_id)
     {
        $sql = "Select * from activities where user_id=:user";
