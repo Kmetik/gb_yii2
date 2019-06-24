@@ -8,11 +8,10 @@ class DayIndexAction extends Action {
 
 
     public function run($date){
-        if(\Yii::$app->rbac->watchActivties()) {
-            return $this->controller->redirect(['auth/login']);
-        }
+        
         $comp = \Yii::createObject(['class'=>ActivityComponent::class,'model'=>'app\models\Day']);
         $userActivities = $comp->getActivityByDate($date);
+        
         return $this->controller->render('index',['activities'=>$userActivities]);
     }
 }

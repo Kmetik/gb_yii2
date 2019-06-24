@@ -10,11 +10,11 @@ class ActivityEditAction extends Action {
 
     public function run($id) {
         $comp = \Yii::createObject(['class'=>ActivityComponent::class,'model'=>'app\models\Activity']);
-        $model = $comp->editActivity($id);
+        $activity = $comp->editActivity($id);
         
-        if(!\Yii::$app->rbac->canViewOrEditActivity($model)) {
+        if(!\Yii::$app->rbac->canViewOrEditActivity($activity)) {
             throw new HttpException(403,'Недостаточно прав!');
         } 
-        return $this->controller->render('create', ['model'=>$model]); 
+        return $this->controller->render('create', ['model'=>$activity]); 
     }
 }

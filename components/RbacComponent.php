@@ -64,8 +64,11 @@ class RbacComponent extends BaseComponent {
     }
 
     public function canViewOrEditActivity($activity) {
-        if(\Yii::$app->user->can('allPriveleges')) {
+        if(\Yii::$app->user->can('allPrivileges')){
             return true;
-        } else return \Yii::$app->user->can('viewEditOwner',['acitivity'=>$activity]);
+        }
+        return \Yii::$app->user->can('viewEditOwner',[
+            'activity'=>$activity
+        ]);
     }
 }

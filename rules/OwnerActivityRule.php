@@ -12,6 +12,7 @@ class OwnerActivityRule extends Rule {
     public function execute($user, $item, $params)
     {
         $activity = ArrayHelper::getValue($params,'activity');
+        
         if(!$activity) {
             return false;
         }

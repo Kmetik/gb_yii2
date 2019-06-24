@@ -15,12 +15,11 @@ class ActivityIndexAction extends Action {
 
         $model = $comp->getActivityById($id);
         
-        if(\Yii::$app->rbac->canViewOrEditActivity($model)) {
-            return $this->controller->render('index',['model'=>$model]);
-            
-        } else {
+        if(!\Yii::$app->rbac->canViewOrEditActivity($model)) {
             throw new HttpException(403,'Не хватает прав доступа');
         }
+        
+        return $this->controller->render('index',['model'=>$model]);
         
     }
 }
