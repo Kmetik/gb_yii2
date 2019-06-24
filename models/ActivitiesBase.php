@@ -43,12 +43,12 @@ class ActivitiesBase extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'title', 'dateStart', 'timeStart', 'dateFinish'], 'required'],
-            [['user_id', 'isBlocked', 'isRepeat', 'useNotification', 'userFiles', 'active'], 'integer'],
+            [['user_id', 'isBlocked', 'isRepeat', 'useNotification', 'active'], 'integer'],
             [['description'], 'string'],
             [['dateStart', 'timeStart', 'dateFinish', 'timeFinish', 'created_at'], 'safe'],
             [['title'], 'string', 'max' => 150],
             [['repeatType'], 'string', 'max' => 255],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
