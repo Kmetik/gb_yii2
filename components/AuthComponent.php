@@ -60,25 +60,21 @@ class AuthComponent extends BaseComponent {
     }
 
     public function durakHelp(Users $model,$key) {
-
-        if(Users::find()->andWhere(['auth_key'=>$key])->one() && !\Yii::$app->user->identity) {
-
-            throw new HttpException(406, 'Ай-яй-яй, что сейчас произошло!!!');
-
-        } else {
-            if($model->validate(['password','repeatPassword'])) {
-                $model->password_hash = $this->generatePasswordHash($model->password);
-                if(!$model->save()) return false;
+        $user = $this->getUserByAtuhKey($key);
+        if($model->validate(['password','repeatPassword'])) {
+            $user->password_hash = $this->generatePasswordHash($model->password);
+            if(!$user->save()) print_r($model);exit;
             }    
             return true; 
-        }
-
     }
 
     private function getUserByEmail($email){
         return Users::find()->andWhere(['email'=>$email])->one();
     }
 
+    private function getUserByAtuhKey($key) {
+        return Users::find()->andWhere(['auth_key'=>$key])->one();
+    }
     private function validatePassword($pass, $pass_hash) {
         return \Yii::$app->security->validatePassword($pass, $pass_hash);
     }

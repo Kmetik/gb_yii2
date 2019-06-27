@@ -14,9 +14,9 @@ class AuthRestoreAction extends Action {
 
         if(\Yii::$app->request->isPost) {
             $model->load(\Yii::$app->request->post());
-            if($comp->durakHelp($model,$key)) return $this->controller->redirect(['/auth/singin/']);
-        
-            
+            if($comp->durakHelp($model,$key)){
+                $this->controller->redirect(['/auth/singin/']);
+            }    
         }
         
         return $this->controller->render('restore',['model'=>$model]);
