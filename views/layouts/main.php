@@ -39,22 +39,25 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Calendar', 'url' => ['/calendar']],
-            ['label' => 'Create Activity', 'url' => ['/activity/create']],
+            ['label' => 'Главная', 'url' => ['/site/index']],
+            ['label' => 'Календарь', 'url' => ['/calendar']],
+            ['label' => 'Добавить событие', 'url' => ['/activity/create']],
+            ['label'=>'Регистрация', 'url'=>['/auth/reg'],
+            'visible'=>Yii::$app->user->isGuest
+            ],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/auth/login']]
-            ) : (
+                ['label' => 'Войти', 'url' => ['/auth/login']]
+             ) : (
                 '<li>'
                 . Html::beginForm(['/auth/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->email . ')',
+                    'Выйти (' . Yii::$app->user->identity->name . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
                 . '</li>'
                 ),
-                ['label'=>'Previous Page', 'url'=> Yii::$app->session->getFlash('prevURI')],
+                ['label'=>'Предыдущая страница', 'url'=> Yii::$app->session->getFlash('prevURI')],
         ],
         
     ]);

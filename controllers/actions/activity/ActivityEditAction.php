@@ -14,7 +14,7 @@ class ActivityEditAction extends Action {
         
         if(!\Yii::$app->rbac->canViewOrEditActivity($activity)) {
             throw new HttpException(403,'Недостаточно прав!');
-        } 
+        }
         return $this->controller->render('create', ['model'=>$activity]); 
     }
 }

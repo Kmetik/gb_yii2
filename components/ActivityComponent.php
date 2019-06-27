@@ -22,7 +22,7 @@ class ActivityComponent extends BaseComponent {
     public function upload(Activity &$model){
         FileHelper::createDirectory('images');
         foreach($model->userFiles as $file) {
-            $file->saveAs('images/'.$file->baseName.'.'.$file->extension);
+            $file->saveAs('images/'.$file->baseName.$model->user_id.$model->dateStart.'.'.$file->extension);
         }
         return true;
     }

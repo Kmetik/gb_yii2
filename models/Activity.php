@@ -3,13 +3,27 @@ namespace app\models;
 
 
 use app\models\validations\DateCompareValidation;
-
+use app\behaviors\ShowLogBehavior;
 
 class Activity extends ActivitiesBase {
     
     public $email;
+    public $userFiles;
     
     public const REPEAT_TYPE=['1d'=>'каждый день','1w'=>'каждую неделю', '1m'=>'каждый месяц']; 
+
+    public function behaviors()
+    {
+        return [
+            // [
+            //     'class'=> app\behaviors\GetDateCreateBehavior::class,
+            //     'attribute_name'=>'created_at'
+            // ],
+            // ShowLogBehavior::class
+
+        ];
+    }
+
 
     public function beforeValidate()
     {

@@ -1,16 +1,14 @@
 <?php
 use yii\bootstrap\ActiveForm;
-use yii\bootstrap\Html;
 
 ?>
 
 <div class="row">
+    <h2>Напоминание пароля по средствам почты</h2>
     <div class="col-md-6">
         <?php $form= ActiveForm::begin();?>
         <?=$form->field($model,'email');?>
-        <?=$form->field($model,'password')->passwordInput();?>
-        <button type="submit">Вход</button>
+        <button type="submit">Напомнить</button>
         <?php ActiveForm::end();?>
-        <?=Html::a('Забыл пароль?',['/auth/remember']);?>
     </div>
 </div>

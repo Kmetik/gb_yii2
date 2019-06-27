@@ -15,6 +15,7 @@ class m190619_050428_CreateTables extends Migration
         
         $this->createTable('users',[
             'id'=>$this->primaryKey(),
+            'name'=>$this->string(150)->notNull(),
             'email'=>$this->string(55)->notNull()->unique(),
             'password_hash'=>$this->string(255)->notNull(),
             'role'=>$this->integer()->defaultValue(0),
@@ -36,9 +37,9 @@ class m190619_050428_CreateTables extends Migration
             'isRepeat'=>$this->boolean()->defaultValue(0),
             'useNotification'=>$this->boolean()->defaultValue(0),
             'repeatType'=>$this->string(),
-            'userFiles'=>$this->integer(),
             'active'=>$this->boolean()->notNull()->defaultValue(1),
-            'created_at'=>$this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP')
+            'created_at'=>$this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
+            'updated_at'=>$this->timestamp()->defaultExpression('CURRENT_TIMESTAMP')
             ]);
 
         $this->createTable('userFiles',[

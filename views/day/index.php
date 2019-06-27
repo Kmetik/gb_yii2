@@ -1,5 +1,6 @@
 <?php
-
+use yii\helpers\Url;
+$this->params['breadcrumbs'][] = \Yii::$app->request->get('date');
 ?>
 <a class="btn btn-success" href="/activity/create?date=<?=\Yii::$app->request->get('date')?>">Добавить</a>
 <div class="row">
@@ -23,7 +24,7 @@
       <td><?=$activity['dateFinish']?> <?=$activity['timeFinish']?></td>
       <td><?=$activity['description']?></td>
       <th scope="row">
-                <a href=<?="../activity/edit?id=". $activity['id'];?> class="card-link">Изменить</a>
+                <a href=<?=Url::to(['activity/edit','id'=>$activity['id']])?> class="card-link">Изменить</a>
                 <a href="#" class="card-link">Завершить</a>
         </th>
     </tr>

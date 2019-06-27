@@ -19,12 +19,11 @@ use Yii;
  * @property int $isRepeat
  * @property int $useNotification
  * @property string $repeatType
- * @property int $userFiles
  * @property int $active
  * @property string $created_at
+ * @property string $updated_at
  *
  * @property Users $user
- * @property UserFiles[] $userFiles0
  */
 class ActivitiesBase extends \yii\db\ActiveRecord
 {
@@ -45,10 +44,10 @@ class ActivitiesBase extends \yii\db\ActiveRecord
             [['user_id', 'title', 'dateStart', 'timeStart', 'dateFinish'], 'required'],
             [['user_id', 'isBlocked', 'isRepeat', 'useNotification', 'active'], 'integer'],
             [['description'], 'string'],
-            [['dateStart', 'timeStart', 'dateFinish', 'timeFinish', 'created_at'], 'safe'],
+            [['dateStart', 'timeStart', 'dateFinish', 'timeFinish', 'created_at', 'updated_at'], 'safe'],
             [['title'], 'string', 'max' => 150],
             [['repeatType'], 'string', 'max' => 255],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -70,9 +69,9 @@ class ActivitiesBase extends \yii\db\ActiveRecord
             'isRepeat' => Yii::t('app', 'Is Repeat'),
             'useNotification' => Yii::t('app', 'Use Notification'),
             'repeatType' => Yii::t('app', 'Repeat Type'),
-            'userFiles' => Yii::t('app', 'User Files'),
             'active' => Yii::t('app', 'Active'),
             'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
 
@@ -81,14 +80,6 @@ class ActivitiesBase extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUserFiles0()
-    {
-        return $this->hasMany(UserFiles::className(), ['activity_id' => 'id']);
+        return $this->hasOne(Users::class, ['id' => 'user_id']);
     }
 }

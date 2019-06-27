@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "users".
  *
  * @property int $id
+ * @property string $name
  * @property string $email
  * @property string $password_hash
  * @property int $role
@@ -33,11 +34,13 @@ class UsersBase extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['email', 'password_hash'], 'required'],
+            [['name', 'email', 'password_hash'], 'required'],
             [['role'], 'integer'],
             [['created_at'], 'safe'],
+            [['name'], 'string', 'max' => 150],
             [['email'], 'string', 'max' => 55],
-            [['password_hash', 'auth_token', 'auth_key'], 'string', 'max' => 300]
+            [['password_hash'], 'string', 'max' => 255],
+            [['auth_token', 'auth_key'], 'string', 'max' => 300]
         ];
     }
 
@@ -48,6 +51,7 @@ class UsersBase extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
+            'name' => Yii::t('app', 'Name'),
             'email' => Yii::t('app', 'Email'),
             'password_hash' => Yii::t('app', 'Password Hash'),
             'role' => Yii::t('app', 'Role'),
@@ -62,6 +66,6 @@ class UsersBase extends \yii\db\ActiveRecord
      */
     public function getActivities()
     {
-        return $this->hasMany(Activity::class, ['user_id' => 'id']);
+        return $this->hasMany(Activities::className(), ['user_id' => 'id']);
     }
 }

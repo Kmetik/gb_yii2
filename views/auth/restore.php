@@ -1,16 +1,16 @@
 <?php
 use yii\bootstrap\ActiveForm;
-use yii\bootstrap\Html;
 
 ?>
 
 <div class="row">
+    <h2>Восстановление пароля</h2>
     <div class="col-md-6">
         <?php $form= ActiveForm::begin();?>
-        <?=$form->field($model,'email');?>
         <?=$form->field($model,'password')->passwordInput();?>
-        <button type="submit">Вход</button>
+        <?=$form->field($model,'repeatPassword')->passwordInput();?>
+        
+        <button type="submit">Напомнить</button>
         <?php ActiveForm::end();?>
-        <?=Html::a('Забыл пароль?',['/auth/remember']);?>
     </div>
 </div>

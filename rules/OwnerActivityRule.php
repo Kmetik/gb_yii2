@@ -15,7 +15,7 @@ class OwnerActivityRule extends Rule {
         
         if(!$activity) {
             return false;
-        }
+        } else if(\Yii::$app->user->can('allPriveleges')) return true;
         return $activity->user_id==$user;
     }
 }

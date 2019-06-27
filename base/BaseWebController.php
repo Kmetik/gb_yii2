@@ -5,7 +5,9 @@ use yii\web\Controller;
 use yii\web\HttpException;
 
 class BaseWebController extends Controller {
-    public $breadcrumbs;
+    public $params;
+    
+
     
     public function beforeAction($action)
     {
