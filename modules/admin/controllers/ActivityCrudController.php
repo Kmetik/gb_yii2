@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\admin\controllers;
 
 use Yii;
 use app\models\Activity;
@@ -14,16 +14,6 @@ use yii\filters\VerbFilter;
  */
 class ActivityCrudController extends Controller
 {
-
-    public function beforeAction($action)
-    {
-        if(!\Yii::$app->user->can('allPriveleges')) {
-            throw new HttpException(403,'Ай-яй-яй! Сюда нельзя! Ты как это нашел?');
-        }
-        
-        return parent::beforeAction($action);
-
-    }
     /**
      * {@inheritdoc}
      */

@@ -24,34 +24,26 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
             'id',
             'user_id',
-            [
-                'attribute'=>'email',
-                'value'=>function($model) {
-                    return $model->user->email;
-                }    
-            ],
-            'user.email',
-            [
-                'attribute'=>'title',
-                'value'=> function($model){
-                    return Html::a($model->title,['/activity/','id'=>$model->id]);
-                },
-                'format'=>'html'
-            ],
+            'title',
             'description:ntext',
             'dateStart',
             'timeStart',
             'dateFinish',
             'timeFinish',
-            //'isBlocked',
-            //'isRepeat',
-            //'useNotification',
-            //'repeatType',
+            'isBlocked',
+            // 'isRepeat',
+            // 'repeatType',
+            'repeatEnd',
+            'useNotification',
+            'notifyType',
+            'notifyDelay',
             'active',
-            'created_at',
-            //'updated_at',
+            // 'created_at',
+            // 'updated_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

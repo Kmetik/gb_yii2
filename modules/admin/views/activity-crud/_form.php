@@ -30,9 +30,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'isRepeat')->textInput() ?>
 
+    <?= $form->field($model, 'repeatType')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'repeatEnd')->textInput() ?>
+
     <?= $form->field($model, 'useNotification')->textInput() ?>
 
-    <?= $form->field($model, 'repeatType')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'notifyType')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'notifyDelay')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'active')->textInput() ?>
 

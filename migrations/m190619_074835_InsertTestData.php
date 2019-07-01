@@ -16,14 +16,16 @@ class m190619_074835_InsertTestData extends Migration
             'name'=>'Админ',
             'id'=>1,
             'email'=>'test@test.ru',
-            'password_hash'=>\Yii::$app->security->generatePasswordHash('123456')
+            'password_hash'=>\Yii::$app->security->generatePasswordHash('123456'),
+            'auth_key'=>\Yii::$app->authComp->generateAuthKey()
         ]);
 
         $this->insert('users',[
             'name'=>'Работяга',
             'id'=>2,
             'email'=>'test2@test.ru',
-            'password_hash'=>\Yii::$app->security->generatePasswordHash('123456')
+            'password_hash'=>\Yii::$app->security->generatePasswordHash('123456'),
+            'auth_key'=>\Yii::$app->authComp->generateAuthKey()
         ]);
 
         $this->batchInsert('activities',[

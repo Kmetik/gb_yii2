@@ -35,9 +35,15 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'isRepeat') ?>
 
+    <?php // echo $form->field($model, 'repeatType') ?>
+
+    <?php // echo $form->field($model, 'repeatEnd') ?>
+
     <?php // echo $form->field($model, 'useNotification') ?>
 
-    <?php // echo $form->field($model, 'repeatType') ?>
+    <?php // echo $form->field($model, 'notifyType') ?>
+
+    <?php // echo $form->field($model, 'notifyDelay') ?>
 
     <?php // echo $form->field($model, 'active') ?>
 

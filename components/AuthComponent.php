@@ -4,8 +4,6 @@ namespace app\components;
 
 use app\models\Users;
 use app\base\BaseComponent;
-use yii\mail\MailerInterface;
-use yii\web\HttpException;
 
 class AuthComponent extends BaseComponent {
    
@@ -41,7 +39,7 @@ class AuthComponent extends BaseComponent {
         }
         
         \Yii::$app->user->login($user,3600);
-
+        return true;
     }
 
     public function userDurak(Users $model) {
@@ -60,12 +58,15 @@ class AuthComponent extends BaseComponent {
     }
 
     public function durakHelp(Users $model,$key) {
+
         $user = $this->getUserByAtuhKey($key);
+
         if($model->validate(['password','repeatPassword'])) {
             $user->password_hash = $this->generatePasswordHash($model->password);
-            if(!$user->save()) print_r($model);exit;
-            }    
-            return true; 
+
+            if(!$user->save()) return false;            }    
+            
+        return true; 
     }
 
     private function getUserByEmail($email){

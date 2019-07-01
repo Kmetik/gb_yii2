@@ -8,7 +8,7 @@ use app\controllers\actions\activity\ActivityEditAction;
 use yii\web\HttpException;
 
 class ActivityController extends BaseWebController {
-    
+
     public function actions()
     {
         return [

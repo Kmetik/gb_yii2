@@ -11,9 +11,8 @@ use yii\web\HttpException;
 class ActivityCreateAction extends Action {
     public $name;
     public function run(){
-
         if(!\Yii::$app->rbac->canCreateActivity()){
-            throw new HttpException(403,'не авторизован');
+            throw new HttpException(401,'Пожайлуста, авторизуйтесь!');
         }
 
         $comp = \Yii::createObject(['class'=>ActivityComponent::class, 'model'=>'app\models\Activity']);

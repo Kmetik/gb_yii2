@@ -42,17 +42,14 @@ AppAsset::register($this);
             ['label' => 'Главная', 'url' => ['/site/index']],
             ['label' => 'Календарь', 'url' => ['/calendar']],
             ['label' => 'Добавить событие', 'url' => ['/activity/create']],
-            ['label'=>'Регистрация', 'url'=>['/user/auth/reg'],
+            ['label'=>'Регистрация', 'url'=>['/auth/reg'],
             'visible'=>Yii::$app->user->isGuest
             ],
-            ['label'=>'Личный кабинет', 'url'=>['/user/'],
-            'visible'=>!Yii::$app->user->isGuest
-            ],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Войти', 'url' => ['/user/auth/login']]
+                ['label' => 'Войти', 'url' => ['/auth/login']]
              ) : (
                 '<li>'
-                . Html::beginForm(['/user/auth/logout'], 'post')
+                . Html::beginForm(['/auth/logout'], 'post')
                 . Html::submitButton(
                     'Выйти (' . Yii::$app->user->identity->name . ')',
                     ['class' => 'btn btn-link logout']

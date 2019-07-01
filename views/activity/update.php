@@ -6,7 +6,7 @@ use yii\bootstrap\ActiveForm;
 */
 ?>
 
-<h2>Добавление события</h2>
+<h2>Обновление события</h2>
 <div class="row">
     
     <div class="col-md-6">
@@ -19,7 +19,7 @@ use yii\bootstrap\ActiveForm;
         <?=$form->field($model, 'description')->textarea();?>
         <?=$form->field($model,'isRepeat')->checkbox();?>
         <?=$form->field($model,'repeatType')->dropDownList($model::REPEAT_TYPE);?>
-        <?=$form->field($model,'repeatEnd',['enableAjaxValidation'=>true,'enableClientValidation'=>false])->input('date');?>
+        <?=$form->field($model,'repeatEnd')->input('date');?>
         <?=$form->field($model, 'isBlocked')->checkbox();?>
         <?=$form->field($model,'useNotification')->checkbox();?>
         <?=$form->field($model,'notifyType')->dropDownList($model::NOTIFICATION_TYPE);?>

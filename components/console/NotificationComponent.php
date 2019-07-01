@@ -3,6 +3,7 @@
 namespace app\components\console;
 
 use yii\base\Component;
+use yii\helpers\Console;
 
 class NotificationComponent extends Component {
 
@@ -15,13 +16,18 @@ class NotificationComponent extends Component {
         foreach($activities as $activity) {
 
 
-            $this->mailer->compose('notification',[
+            $sended = $this->mailer->compose('notification',[
                 'title'=>$activity->title,
                 'description'=>$activity->description
             ])
             ->setFrom('aleksei.kmetik@yandex.ru')
             ->setTo($activity->email)
             ->setSubject('Перейди сюда')->send();
+
+            if($sended) {
+                echo Console::ansiFormat('sended mail to'.$activity->email,Console::FG_GREEN).PHP_EOL;
+                
+            }
         }
     }
 }

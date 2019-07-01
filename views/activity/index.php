@@ -1,6 +1,10 @@
 <?php
 use yii\widgets\DetailView;
-use yii\helpers\Html;
+use yii\bootstrap\Html;
+
+$this->title = $model->title;
+$this->params['breadcrumbs'][] = ['label'=>'Календарь','url'=>'/calendar/'];
+$this->params['breadcrumbs'][] = ['label'=>$model->dateStart,'url'=>['/day/','date'=>$model->dateStart]];
 $this->params['breadcrumbs'][] = $model->title;
 
 
@@ -20,7 +24,9 @@ $this->params['breadcrumbs'][] = $model->title;
                 return Html::a("$model->dateStart перейти ко дню",['/day/','date'=>$model->dateStart]);
             }    
         ],
-        'timeStart',
+        ['attribute'=>'timeStart','value'=>function($model){
+            return \Yii::$app->formatter->asTime($model->timeStart,'php: H:i');
+        }],
         [
             'attribute'=>'dateFinish',
             'format'=>'html',
@@ -28,10 +34,15 @@ $this->params['breadcrumbs'][] = $model->title;
                 return Html::a("$model->dateFinish перейти ко дню",['/day/','date'=>$model->dateFinish]);
             }    
         ],
-        'timeFinish',
-        'created_at:datetime'
+        ['attribute'=>'timeFinish','value'=>function($model){
+            return \Yii::$app->formatter->asTime($model->timeFinish,'php: H:i');
+        }],
+        'created_at:datetime',
+
     ]
 ]);?>
-    
     </div>
+    <?php foreach($model->userFiles as $file):?>
+    <?=Html::img($file['fileURL'],['height'=>200])?>
+    <?php endforeach;?>
 </div>

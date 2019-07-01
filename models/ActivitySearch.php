@@ -5,7 +5,6 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Activity;
-use yii\data\ArrayDataProvider;
 
 /**
  * ActivitySearch represents the model behind the search form of `app\models\Activity`.
@@ -19,7 +18,7 @@ class ActivitySearch extends Activity
     {
         return [
             [['id', 'user_id', 'isBlocked', 'isRepeat', 'useNotification', 'active'], 'integer'],
-            [['title', 'description', 'dateStart', 'timeStart', 'dateFinish', 'timeFinish', 'repeatType', 'created_at', 'updated_at'], 'safe'],
+            [['title', 'description', 'dateStart', 'timeStart', 'dateFinish', 'timeFinish', 'repeatType', 'repeatEnd', 'notifyType', 'notifyDelay', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -42,21 +41,18 @@ class ActivitySearch extends Activity
     public function search($params)
     {
         $query = Activity::find();
-        $query->with('user');
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => [
-                'pageSize'=>5
-            ]
         ]);
 
         $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+            $query->where('0=1');
             return $dataProvider;
         }
 
@@ -65,11 +61,12 @@ class ActivitySearch extends Activity
             'id' => $this->id,
             'user_id' => $this->user_id,
             'dateStart' => $this->dateStart,
-            'timeStart' => $this->timeStart,
+            // 'timeStart' => $this->timeStart,
             'dateFinish' => $this->dateFinish,
-            'timeFinish' => $this->timeFinish,
+            // 'timeFinish' => $this->timeFinish,
             'isBlocked' => $this->isBlocked,
             'isRepeat' => $this->isRepeat,
+            'repeatEnd' => $this->repeatEnd,
             'useNotification' => $this->useNotification,
             'active' => $this->active,
             'created_at' => $this->created_at,
@@ -78,9 +75,9 @@ class ActivitySearch extends Activity
 
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'repeatType', $this->repeatType]);
-     
-  
+            ->andFilterWhere(['like', 'repeatType', $this->repeatType])
+            ->andFilterWhere(['like', 'notifyType', $this->notifyType])
+            ->andFilterWhere(['like', 'notifyDelay', $this->notifyDelay]);
 
         return $dataProvider;
     }

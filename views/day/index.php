@@ -1,6 +1,9 @@
 <?php
 use yii\helpers\Url;
-$this->params['breadcrumbs'][] = \Yii::$app->request->get('date');
+use yii\helpers\Html;
+$this->title = \Yii::$app->request->get('date');
+$this->params['breadcrumbs'][] = ['label'=>'Календарь','url'=>'/calendar/'];
+$this->params['breadcrumbs'][] = ['label'=>\Yii::$app->request->get('date'),'url'=>['/day/','date'=>\Yii::$app->request->get('date')]];
 ?>
 <a class="btn btn-success" href="/activity/create?date=<?=\Yii::$app->request->get('date')?>">Добавить</a>
 <div class="row">
@@ -19,7 +22,7 @@ $this->params['breadcrumbs'][] = \Yii::$app->request->get('date');
   <?php foreach($activities as $activity):?>
     <tr>
       <th scope="row"><?=$activity['id']?></th>
-      <td><?=$activity['title']?></td>
+      <td><?=Html::a($activity['title'],['/activity','id'=>$activity['id']]);?></td>
       <td><?=$activity['dateStart']?> <?=$activity['timeStart']?></td>
       <td><?=$activity['dateFinish']?> <?=$activity['timeFinish']?></td>
       <td><?=$activity['description']?></td>

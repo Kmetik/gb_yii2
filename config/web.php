@@ -7,13 +7,36 @@ $config = [
     'id' => 'basic',
     'language'=>'ru-RU',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log','queue'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
         '@webroot'=>'web/'
     ],
+    'modules' => [
+        'user' => [
+            'class' => 'app\modules\auth\Module',
+        ],
+        'admin' => [
+            'class' => 'app\modules\admin\Module',
+        ]
+    ],
     'components' => [
+        'redis'=>[
+            'class'=>\yii\redis\Connection::class,
+            'port'=>6379,
+            'hostname'=>'localhost',
+            'database'=>0
+        ],
+        'queue'=>[
+            'class'=>\yii\queue\redis\Queue::class,
+            'as log'=>\yii\queue\LogBehavior::class,
+            'redis'=>'redis'
+        ],
+        'authComp'=>[
+            'class'=>\app\components\AuthComponent::class,
+            'model'=>'\app\models\Users'
+        ],
         'rbac'=>[
             'class'=>\app\components\RbacComponent::class
         ],

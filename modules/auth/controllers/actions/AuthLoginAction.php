@@ -1,6 +1,6 @@
 <?php 
 
-namespace app\controllers\actions\auth;
+namespace app\modules\auth\controllers\actions;
 
 use app\components\AuthComponent;
 use yii\base\Action;
@@ -16,7 +16,7 @@ class AuthLoginAction extends Action {
         if(\Yii::$app->request->isPost) {
             $model->load(\Yii::$app->request->post());
             if($comp->signIn($model)) {
-              return $this->controller->redirect(['calendar']); 
+              return $this->controller->redirect(['/calendar/']); 
             }
         }
         return $this->controller->render('signin',['model'=>$model]);

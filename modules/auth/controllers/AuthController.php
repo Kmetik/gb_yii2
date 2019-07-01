@@ -1,13 +1,13 @@
 <?php 
 
-namespace app\controllers;
+namespace app\modules\auth\controllers;
 
 use yii\web\Controller;
-use app\controllers\actions\auth\AuthLoginAction;
-use app\controllers\actions\auth\AuthRegAction;
-use app\controllers\actions\auth\AuthLogoutAction;
-use app\controllers\actions\auth\AuthRememberAction;
-use app\controllers\actions\auth\AuthRestoreAction;
+use app\modules\auth\controllers\actions\AuthLoginAction;
+use app\modules\auth\controllers\actions\AuthRegAction;
+use app\modules\auth\controllers\actions\AuthLogoutAction;
+use app\modules\auth\controllers\actions\AuthRememberAction;
+use app\modules\auth\controllers\actions\AuthRestoreAction;
 
 class AuthController extends Controller {
 

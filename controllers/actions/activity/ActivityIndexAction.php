@@ -10,11 +10,11 @@ class ActivityIndexAction extends Action {
     
     
     public function run($id) {
-       
-        $comp = \Yii::createObject(['class'=>ActivityComponent::class,'model'=>'app\models\Activity']);
-
-        $model = $comp->getActivityById($id);
+       /** @var ActivityComponent $comp */
         
+       $comp = \Yii::createObject(['class'=>ActivityComponent::class,'model'=>'app\models\Activity']);
+        $model = $comp->getActivityById($id);
+        $model->userFiles = $comp->getUserFilesByActivityId($id);
         if(!\Yii::$app->rbac->canViewOrEditActivity($model)) {
             throw new HttpException(403,'Не хватает прав доступа');
         }

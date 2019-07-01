@@ -6,7 +6,7 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log','queue'],
     'controllerNamespace' => 'app\commands',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -14,11 +14,29 @@ $config = [
         '@tests' => '@app/tests',
     ],
     'components' => [
+        'redis'=>[
+            'class'=>\yii\redis\Connection::class,
+            'port'=>6379,
+            'hostname'=>'localhost',
+            'database'=>0
+        ],
+        'queue'=>[
+            'class'=>\yii\queue\redis\Queue::class,
+            'as log'=>\yii\queue\LogBehavior::class,
+            'redis'=>'redis'
+        ],
+        'authComp'=>[
+            'class'=>\app\components\AuthComponent::class,
+            'model'=>'\app\models\Users'
+        ],
         'authManager' => [
             'class'=>'yii\rbac\DbManager'
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
+        ],
+        'rbac'=>[
+            'class'=>\app\components\RbacComponent::class
         ],
         'log' => [
             'targets' => [

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers\actions\auth;
+namespace app\modules\auth\controllers\actions;
 
 use yii\base\Action;
 use app\components\AuthComponent;

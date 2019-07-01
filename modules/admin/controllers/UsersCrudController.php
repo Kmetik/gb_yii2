@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\admin\controllers;
 
 use Yii;
 use app\models\Users;
@@ -8,22 +8,12 @@ use app\models\UsersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\HttpException;
 
 /**
  * UsersCrudController implements the CRUD actions for Users model.
  */
 class UsersCrudController extends Controller
 {
-    public function beforeAction($action)
-    {
-        if(!\Yii::$app->user->can('allPriveleges')) {
-            throw new HttpException(403,'Ай-яй-яй! Сюда нельзя! Ты как это нашел?');
-        }
-        
-        return parent::beforeAction($action);
-
-    }
     /**
      * {@inheritdoc}
      */
