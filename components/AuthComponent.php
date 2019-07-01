@@ -4,6 +4,7 @@ namespace app\components;
 
 use app\models\Users;
 use app\base\BaseComponent;
+use app\jobs\PasswordRestoreJob;
 
 class AuthComponent extends BaseComponent {
    
@@ -42,30 +43,38 @@ class AuthComponent extends BaseComponent {
         return true;
     }
 
-    public function userDurak(Users $model) {
+    public function rememberPassword(Users $model) {
         $model->setScenarioRemember();
         $user = Users::find()->andWhere(['email'=>$model->email])->one();
         if($model->validate(['email'])) {
-           $notify = \Yii::$app->mailer->compose('notification',[
-                'key'=>$user->auth_key
-            ])
-            ->setFrom('aleksei.kmetik@yandex.ru')
-            ->setTo($model->email)
-            ->setSubject('Перейди сюда')->send();
-            if($notify) return true;
-            else return false;
-        }
+            //    $notify = \Yii::$app->mailer->compose('notification',[
+            //         'key'=>$user->auth_key
+            //     ])
+            //     ->setFrom('aleksei.kmetik@yandex.ru')
+            //     ->setTo($model->email)
+            //     ->setSubject('Перейди сюда')->send();
+            //     if($notify) return true;
+            //     else return false;
+            // TODO: Добавить слушателя на события ошибок и завершения
+                \Yii::$app->queue->push(new PasswordRestoreJob([
+                    'to'=>$user->email,
+                    'key'=>$user->auth_key
+                ]));
+                return true;
+            }
     }
 
-    public function durakHelp(Users $model,$key) {
+    public function restorePassword(Users $model,$key) {
+        $model->setScenarioRestorePass();
 
-        $user = $this->getUserByAtuhKey($key);
+
+        $user = $this->getUserByAuthKey($key);
 
         if($model->validate(['password','repeatPassword'])) {
             $user->password_hash = $this->generatePasswordHash($model->password);
-
-            if(!$user->save()) return false;            }    
-            
+            $user->auth_key = $this->generateAuthKey(); 
+            if(!$user->save()) return false;            
+        }       
         return true; 
     }
 
@@ -73,7 +82,7 @@ class AuthComponent extends BaseComponent {
         return Users::find()->andWhere(['email'=>$email])->one();
     }
 
-    private function getUserByAtuhKey($key) {
+    private function getUserByAuthKey($key) {
         return Users::find()->andWhere(['auth_key'=>$key])->one();
     }
     private function validatePassword($pass, $pass_hash) {

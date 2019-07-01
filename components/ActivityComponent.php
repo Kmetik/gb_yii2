@@ -5,7 +5,6 @@ namespace app\components;
 use app\models\Activity;
 use yii\web\UploadedFile;
 use app\base\BaseComponent;
-use yii\db\Query;
 
 class ActivityComponent extends BaseComponent {
 

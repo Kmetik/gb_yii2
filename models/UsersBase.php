@@ -35,7 +35,6 @@ class UsersBase extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'email', 'password_hash'], 'required'],
-            [['role'], 'integer'],
             [['created_at'], 'safe'],
             [['name'], 'string', 'max' => 150],
             [['email'], 'string', 'max' => 55],

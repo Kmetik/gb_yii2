@@ -14,7 +14,7 @@ class AuthRememberAction extends Action {
 
         if(\Yii::$app->request->isPost) {
             $model->load(\Yii::$app->request->post());
-            if($comp->userDurak($model)) {
+            if($comp->rememberPassword($model)) {
                 return $this->controller->render('await');
             }
         }

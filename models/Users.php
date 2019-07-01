@@ -43,6 +43,12 @@ class Users extends UsersBase implements IdentityInterface
         $this->setScenario(self::SCENARIO_REMEMBER);
         return $this;
     }
+
+    public function setScenarioRestorePass()
+    {
+        $this->setScenario(self::SCENARIO_CHANGEPASSWORD);
+        return $this;
+    }
     
 
     public function attributeLabels()
