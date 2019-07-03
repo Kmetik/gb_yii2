@@ -38,8 +38,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'notifyType')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'notifyDelay')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'active')->textInput() ?>
 
     <?= $form->field($model, 'created_at')->textInput() ?>

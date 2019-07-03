@@ -40,7 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'repeatEnd',
             'useNotification',
             'notifyType',
-            'notifyDelay',
             'active',
             // 'created_at',
             // 'updated_at',

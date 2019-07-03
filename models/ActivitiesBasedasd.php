@@ -21,6 +21,7 @@ use Yii;
  * @property string $repeatEnd
  * @property int $useNotification
  * @property string $notifyType
+ * @property string $notifyDelay
  * @property int $active
  * @property string $created_at
  * @property string $updated_at
@@ -49,7 +50,7 @@ class ActivitiesBase extends \yii\db\ActiveRecord
             [['description'], 'string'],
             [['dateStart', 'timeStart', 'dateFinish', 'timeFinish', 'repeatEnd', 'created_at', 'updated_at'], 'safe'],
             [['title'], 'string', 'max' => 150],
-            [['repeatType'], 'string', 'max' => 255],
+            [['repeatType', 'notifyDelay'], 'string', 'max' => 255],
             [['notifyType'], 'string', 'max' => 16],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -75,6 +76,7 @@ class ActivitiesBase extends \yii\db\ActiveRecord
             'repeatEnd' => Yii::t('app', 'Repeat End'),
             'useNotification' => Yii::t('app', 'Use Notification'),
             'notifyType' => Yii::t('app', 'Notify Type'),
+            'notifyDelay' => Yii::t('app', 'Notify Delay'),
             'active' => Yii::t('app', 'Active'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),

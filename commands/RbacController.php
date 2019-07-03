@@ -6,7 +6,7 @@ use yii\console\Controller;
 
 class RbacController extends Controller {
 
-    public function actionGet() {
+    public function actionSet() {
         \Yii::$app->rbac->gen();
 
         echo 'права установлены'.PHP_EOL;

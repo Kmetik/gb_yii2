@@ -24,7 +24,9 @@ use yii\bootstrap\ActiveForm;
         <?=$form->field($model,'useNotification')->checkbox();?>
         <?=$form->field($model,'notifyType')->dropDownList($model::NOTIFICATION_TYPE);?>
         <?=$form->field($model,'userFiles[]')->fileInput(['multiple'=>true,'accept'=>'image/+']);?>
-        <div class="form-group"><button class="btn btn-primary" type="submit">Отправить</button></div>  
+        <?=$form->field($model,'updateRelations')->checkbox();?>
+        <?=$form->field($model,'active')->checkbox();?>
+        <div class="form-group"><button class="btn btn-primary" type="submit">Изменить</button></div>  
         <?php ActiveForm::end();?>
     </div>
 </div>

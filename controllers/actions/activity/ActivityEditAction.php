@@ -14,21 +14,26 @@ class ActivityEditAction extends Action {
         /** @var ActivityComponent  $comp */
 
         $comp = \Yii::createObject(['class'=>ActivityComponent::class,'model'=>'app\models\Activity']);
-        $model = $comp->getActivityById($id);
+        if(!$model = $comp->getActivityById($id)){
+            throw new HttpException(404,'Нет таких');
+        }
     
+        if(!\Yii::$app->rbac->canViewOrEditActivity($model)) {
+            throw new HttpException(403,'Недостаточно прав!');
+        }
+        
         if(\Yii::$app->request->isPost) {
     
             $model->load(\Yii::$app->request->post());
     
+            
             if($comp->editActivity($model)) {
     
                 return $this->controller->redirect(['day/','date'=>$model->dateStart]);
             }
         }
 
-        if(!\Yii::$app->rbac->canViewOrEditActivity($model)) {
-            throw new HttpException(403,'Недостаточно прав!');
-        }
+        
         return $this->controller->render('update', ['model'=>$model]); 
     }
 }

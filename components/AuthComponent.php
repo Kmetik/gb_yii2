@@ -7,6 +7,8 @@ use app\base\BaseComponent;
 use app\jobs\PasswordRestoreJob;
 
 class AuthComponent extends BaseComponent {
+
+    const RESTORE_EVENT='restore';
    
     public function singUp(Users &$model){
         $model->setScenarioSignUp();
@@ -15,6 +17,7 @@ class AuthComponent extends BaseComponent {
 
         $model->password_hash = $this->generatePasswordHash($model->password);
         $model->auth_key = $this->generateAuthKey();
+
 
         if(!$model->save()) return false;
         

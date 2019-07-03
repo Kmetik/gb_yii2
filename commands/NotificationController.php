@@ -32,5 +32,11 @@ class NotificationController extends Controller {
     public function actionSend() {
         
     }
+
+    public function actionGet() {
+        
+
+
+    }
 }
 

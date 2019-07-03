@@ -43,8 +43,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'notifyType') ?>
 
-    <?php // echo $form->field($model, 'notifyDelay') ?>
-
     <?php // echo $form->field($model, 'active') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>

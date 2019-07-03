@@ -38,7 +38,7 @@ class m190619_050428_CreateTables extends Migration
             'repeatEnd'=>$this->date(),
             'useNotification'=>$this->boolean()->defaultValue(0),
             'notifyType'=>$this->string(16),
-            'notifyDelay'=>$this->string(),
+            'relatesToId'=>$this->integer(),
             'active'=>$this->boolean()->notNull()->defaultValue(1),
             'created_at'=>$this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
             'updated_at'=>$this->timestamp()->defaultExpression('CURRENT_TIMESTAMP')

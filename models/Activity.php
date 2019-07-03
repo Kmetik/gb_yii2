@@ -4,13 +4,16 @@ namespace app\models;
 
 use app\models\validations\DateCompareValidation;
 use app\behaviors\ShowLogBehavior;
+use app\models\validations\RepeatValidation;
 
 class Activity extends ActivitiesBase {
     
-    public $email;
     public $userFiles;
+    public $updateRelations;
+
+    const  SCENARIO_EDITREPEATED = 'edit_repeated';
     
-    public const REPEAT_TYPE=['P1D'=>'каждый день','P1W'=>'каждую неделю' ,'P2W'=>'каждую неделю',  'P1M'=>'каждый месяц']; 
+    public const REPEAT_TYPE=['1 day'=>'каждый день','1 week'=>'каждую неделю' ,'2 weeks'=>'каждые 2 недели',  '1 month'=>'каждый месяц']; 
     public const NOTIFICATION_TYPE=['1 hour'=>'за час','1 day'=>'за день','10 minutes'=>'за десять минут'];
 
     public function behaviors()
@@ -46,6 +49,12 @@ class Activity extends ActivitiesBase {
         return parent::beforeValidate();
     }
 
+    public function setScenarioEditRepeated()
+    {
+        $this->setScenario(self::SCENARIO_EDITREPEATED);
+        return $this;
+    }
+
     public function rules(){
         return array_merge([
             ['title','string','min'=>5, 'max'=>255],
@@ -64,11 +73,10 @@ class Activity extends ActivitiesBase {
             [['useNotification','isBlocked','isRepeat'],'boolean'],
             ['description','string', 'max'=>255],
             ['description','trim'],
-            // ['email','required','when'=>function($model){
-            //     return $model->useNotification;
-            // }],
+            ['repeatEnd', RepeatValidation::class],
             [['userFiles'],'file','extensions'=>['jpg','png'],'maxFiles'=>3],
             ['repeatType','in','range'=>array_keys(self::REPEAT_TYPE)],
+            ['updateRelations','boolean']
         ],parent::rules());
     }
     public function attributeLabels()
@@ -81,7 +89,14 @@ class Activity extends ActivitiesBase {
             'dateFinish'=>'Дата окончания',
             'isRepeat'=>'Повторяющиеся',
             'repeatType'=>'Тип повторения',
-            'useNotification'=>'Уведомлять?'
+            'useNotification'=>'Уведомлять?',
+            'updateRelations'=>'Все в последовательности?',
+            'active'=>'Активно?'
+
         ];
+    }
+
+    public function getRelated() {
+        return self::find(['id'=>$this->relatesToId])->all();
     }
 }

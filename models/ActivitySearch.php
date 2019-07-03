@@ -18,7 +18,7 @@ class ActivitySearch extends Activity
     {
         return [
             [['id', 'user_id', 'isBlocked', 'isRepeat', 'useNotification', 'active'], 'integer'],
-            [['title', 'description', 'dateStart', 'timeStart', 'dateFinish', 'timeFinish', 'repeatType', 'repeatEnd', 'notifyType', 'notifyDelay', 'created_at', 'updated_at'], 'safe'],
+            [['title', 'description', 'dateStart', 'timeStart', 'dateFinish', 'timeFinish', 'repeatType', 'repeatEnd', 'notifyType', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -76,8 +76,7 @@ class ActivitySearch extends Activity
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'description', $this->description])
             ->andFilterWhere(['like', 'repeatType', $this->repeatType])
-            ->andFilterWhere(['like', 'notifyType', $this->notifyType])
-            ->andFilterWhere(['like', 'notifyDelay', $this->notifyDelay]);
+            ->andFilterWhere(['like', 'notifyType', $this->notifyType]);
 
         return $dataProvider;
     }

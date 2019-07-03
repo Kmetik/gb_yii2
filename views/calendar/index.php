@@ -30,10 +30,12 @@ use yii\helpers\Url;
     <?php 
         $month = $grid['current']['month'];
         $dayName = \Yii::$app->formatter->asDate("$year-$month-$val",'php:D');?>
-        <?php $date=date('Y-m-d',strtotime("$year-$month-$val"))==date('Y-m-d')?'active-date-square':'';?>
+        <?php $active=date('Y-m-d',strtotime("$year-$month-$val"))==date('Y-m-d')?'active-date-square':'';
+            $date=date('Y-m-d',strtotime("$year-$month-$val"))
+        ?>
         <?="
-        <div class='current month $date'>
-        <a class='month-link' href='../day?date=$year-$month-$val'>
+        <div class='current month $active'>
+        <a class='month-link' href='../day?date=$date'>
         <span>$dayName
         </span>
         <span>$val</span>
