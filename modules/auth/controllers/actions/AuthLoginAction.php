@@ -16,7 +16,7 @@ class AuthLoginAction extends Action {
         if(\Yii::$app->request->isPost) {
             $model->load(\Yii::$app->request->post());
             if($comp->signIn($model)) {
-              return $this->controller->redirect(['/calendar/']); 
+              return $this->controller->redirect(['/user/']); 
             }
         }
         return $this->controller->render('signin',['model'=>$model]);

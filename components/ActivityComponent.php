@@ -6,6 +6,7 @@ use app\models\Activity;
 use yii\web\UploadedFile;
 use app\base\BaseComponent;
 use DateInterval;
+use DateTime;
 
 class ActivityComponent extends BaseComponent {
 
@@ -14,6 +15,9 @@ class ActivityComponent extends BaseComponent {
         $model->userFiles=UploadedFile::getInstances($model,'userFiles');
         $model->user_id = \Yii::$app->user->getId();
         if($model->validate()) {
+            if($model->useNotification) {
+                $model->notifyTime = $this->setNotificationTime($model->timeFinish,$model->dateFinish,$model->notifyType);
+            }
             $model->save();
             if($model->isRepeat) {
                 $this->connection->createCommand()->batchInsert('activities',$model->attributes(),$this->setActivityRepeat($model))->execute();
@@ -52,8 +56,13 @@ class ActivityComponent extends BaseComponent {
         $batch=[];
         
         foreach($period as $date) {
-            $model->dateStart=$date->format('Y-m-d');
-            $model->dateFinish=date('Y-m-d',strtotime("$model->dateStart +$diff"));
+            $start = $date->format('Y-m-d');
+            $finish = date('Y-m-d',strtotime("$start +$diff"));
+            $model->dateStart=$start;
+            $model->dateFinish=$finish;
+            if($model->useNotification) {
+                $model->notifyTime = $this->setNotificationTime($model->timeFinish,$finish,$model->notifyType);
+            }
             $model->active = 1;
             $model->id++;
             $model->relatesToId = $relay;
@@ -64,11 +73,17 @@ class ActivityComponent extends BaseComponent {
 
     }
 
+    public function setNotificationTime(string $endTime, string $endDate, string $notifyType) {
+    
+        $date = new DateTime("$endDate $endTime -$notifyType");
+        return $date->format('Y-m-d H:i');
+    }
+
     public function getCreateActivity(Activity &$model) {
         $model->dateStart = \Yii::$app->request->get('date')?$model->dateStart = \Yii::$app->request->get('date'):date('Y-m-d');
-        $model->timeStart = '08:00';   
+        $model->timeStart = date('H:i');   
         $model->dateFinish = \Yii::$app->request->get('date')?$model->dateStart = \Yii::$app->request->get('date'):date('Y-m-d');
-        $model->timeFinish = '09:00';
+        $model->timeFinish = date('H:i');
     }
 
     public function getFileName($file):string {
@@ -93,7 +108,7 @@ class ActivityComponent extends BaseComponent {
     
     public function editActivity(Activity &$model):bool {
             if($model->updateRelations && $model->isRepeat) {
-                if($model->isAttributeChanged('dateStart') || $model->isAttributeChanged('dateFinish') || $model->isAttributeChanged('repeatEnd') || $model->isAttributeChanged('repeatType'))
+                if($model->isAttributeChanged('dateStart') || $model->isAttributeChanged('dateFinish') || $model->isAttributeChanged('repeatEnd') || $model->isAttributeChanged('repeatType') || $model->isAttributeChanged('notifyType'))
                     {
                         $model->deleteAll(['relatesToid'=>$model->relatesToId]);
                         $this->createActivity($model);

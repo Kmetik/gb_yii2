@@ -1,7 +1,7 @@
 <?php
 
 $params = require __DIR__ . '/params.php';
-$db = file_exists(require __DIR__ . '/db_local.php')?require __DIR__ . '/db_local.php':require __DIR__ . '/db.php';
+$db = require __DIR__.'/db.php';
 
 $config = [
     'id' => 'basic',
@@ -46,6 +46,9 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'GiafTRWHn515BsdPmINcg1By6uvU0QAZ',
+            'parsers'=>[
+                'application/json'=>'yii\web\JsonParser'
+            ]
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -83,6 +86,11 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                [
+                'class'=>'yii\rest\UrlRule',
+                'controller'=>'rest',
+                'pluralize'=>false
+                ],
             ],
         ]
     ],

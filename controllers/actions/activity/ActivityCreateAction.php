@@ -12,7 +12,7 @@ class ActivityCreateAction extends Action {
     public $name;
     public function run(){
         if(!\Yii::$app->rbac->canCreateActivity()){
-            throw new HttpException(401,'Пожайлуста, авторизуйтесь!');
+           $this->controller->redirect(['/user/auth/login']);
         }
 
         $comp = \Yii::createObject(['class'=>ActivityComponent::class, 'model'=>'app\models\Activity']);
@@ -24,9 +24,10 @@ class ActivityCreateAction extends Action {
                 return ActiveForm::validate($model);
             }
             if($comp->createActivity($model)){
+                $this->controller->redirect(['/activity','id'=>$model->id]);
             } 
         } else if(\Yii::$app->request->isGet) {
-            $comp->getCreateActivity($model);
+                $comp->getCreateActivity($model);
         }
         
         return $this->controller->render('create',['model'=>$model]);

@@ -1,6 +1,7 @@
 <?php
 use yii\bootstrap\ActiveForm;
 
+
 /**
 * @var $model \app\models\Activity
 */
@@ -29,3 +30,11 @@ use yii\bootstrap\ActiveForm;
     </div>
 </div>
 
+
+<script>
+
+let timezone = new Date().getTimezoneOffset();
+console.log(timezone)
+
+fetch(`/activity/create?timezone=${timezone}`)
+</script>>

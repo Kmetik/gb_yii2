@@ -11,7 +11,7 @@ class BaseWebController extends Controller {
     
     public function beforeAction($action)
     {
-        if(\Yii::$app->user->isGuest) throw new HttpException(401,'неавторизованный пользователь');
+        if(\Yii::$app->user->isGuest) $this->redirect(['/user/auth/login']); 
         return parent::beforeAction($action);
     }
     public function afterAction($action, $result)

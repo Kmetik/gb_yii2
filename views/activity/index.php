@@ -37,6 +37,7 @@ $this->params['breadcrumbs'][] = $model->title;
         ['attribute'=>'timeFinish','value'=>function($model){
             return \Yii::$app->formatter->asTime($model->timeFinish,'php: H:i');
         }],
+        'notifyTime:datetime',
         'created_at:datetime',
 
     ]
