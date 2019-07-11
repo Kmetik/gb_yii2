@@ -97,6 +97,6 @@ class Activity extends ActivitiesBase {
     }
 
     public function getRelated() {
-        return self::find(['id'=>$this->relatesToId])->all();
+        return self::find(['id'=>$this->relatesToId])->cache(10)->all();
     }
 }

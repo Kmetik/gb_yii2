@@ -7,6 +7,7 @@ $config = [
     'id' => 'basic',
     'language'=>'ru-RU',
     'basePath' => dirname(__DIR__),
+    'defaultRoute'=>'main',
     'bootstrap' => ['log','queue'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -51,14 +52,15 @@ $config = [
             ]
         ],
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => 'yii\redis\Cache',
+            'redis'=> 'redis'
         ],
         'user' => [
             'identityClass' => 'app\models\Users',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'main/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',

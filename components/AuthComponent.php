@@ -17,7 +17,7 @@ class AuthComponent extends BaseComponent {
 
         $model->password_hash = $this->generatePasswordHash($model->password);
         $model->auth_key = $this->generateAuthKey();
-
+        $model->auth_token = $this->generateAuthKey();
 
         if(!$model->save()) return false;
         
@@ -50,15 +50,6 @@ class AuthComponent extends BaseComponent {
         $model->setScenarioRemember();
         $user = Users::find()->andWhere(['email'=>$model->email])->one();
         if($model->validate(['email'])) {
-            //    $notify = \Yii::$app->mailer->compose('notification',[
-            //         'key'=>$user->auth_key
-            //     ])
-            //     ->setFrom('aleksei.kmetik@yandex.ru')
-            //     ->setTo($model->email)
-            //     ->setSubject('Перейди сюда')->send();
-            //     if($notify) return true;
-            //     else return false;
-            // TODO: Добавить слушателя на события ошибок и завершения
                 \Yii::$app->queue->push(new PasswordRestoreJob([
                     'to'=>$user->email,
                     'key'=>$user->auth_key

@@ -32,8 +32,8 @@ $config = [
             'transport'=>[
                 'class'=>'Swift_SmtpTransport',
                 'host'=>'smtp.yandex.ru',
-                'username'=>'*',
-                'password'=>'*',
+                'username'=>'aleksei.kmetik@yandex.ru',
+                'password'=>'k91metiK',
                 'port'=>587,
                 'encryption'=>'tls'
             ]

@@ -11,7 +11,7 @@ class BaseWebController extends Controller {
     
     public function beforeAction($action)
     {
-        if(\Yii::$app->user->isGuest) $this->redirect(['/user/auth/login']); 
+        if(\Yii::$app->user->isGuest) return $this->redirect(['/user/auth/login']); 
         return parent::beforeAction($action);
     }
     public function afterAction($action, $result)

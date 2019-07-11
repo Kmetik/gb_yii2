@@ -16,7 +16,7 @@ class ActivityComponent extends BaseComponent {
         $model->user_id = \Yii::$app->user->getId();
         if($model->validate()) {
             if($model->useNotification) {
-                $model->notifyTime = $this->setNotificationTime($model->timeFinish,$model->dateFinish,$model->notifyType);
+                $model->notifyTime = $this->setNotificationTime($model->timeStart,$model->dateStart,$model->notifyType);
             }
             $model->save();
             if($model->isRepeat) {
@@ -61,7 +61,7 @@ class ActivityComponent extends BaseComponent {
             $model->dateStart=$start;
             $model->dateFinish=$finish;
             if($model->useNotification) {
-                $model->notifyTime = $this->setNotificationTime($model->timeFinish,$finish,$model->notifyType);
+                $model->notifyTime = $this->setNotificationTime($model->timeStart,$finish,$model->notifyType);
             }
             $model->active = 1;
             $model->id++;
@@ -90,20 +90,20 @@ class ActivityComponent extends BaseComponent {
         return 'images/'.$file->baseName.'.'.$file->extension;
     }
     public function getActivityById($id) {
-        $model = Activity::find()->andWhere(['id'=>$id])->one();
+        $model = Activity::find()->cache(30)->andWhere(['id'=>$id])->one();
         if(!$model) return false;
         return $model;
     }
 
     public function getUserFilesByActivityId($id):array {
-        return $this->connection->createCommand('select fileURL from userFiles where activity_id = :id',[':id'=>$id])->queryAll();
+        return $this->connection->createCommand('select fileURL from userFiles where activity_id = :id',[':id'=>$id])->cache(60)->queryAll();
     }
 
 
 
     public function getActivityByDate($date):array {
         
-        return Activity::find()->andWhere(['dateStart'=>$date, 'user_id'=>\Yii::$app->user->getId(),'active'=>1])->all();
+        return Activity::find()->cache(30)->andWhere(['dateStart'=>$date, 'user_id'=>\Yii::$app->user->getId(),'active'=>1])->all();
     }
     
     public function editActivity(Activity &$model):bool {

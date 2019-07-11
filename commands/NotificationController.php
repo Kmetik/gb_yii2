@@ -3,40 +3,13 @@
 namespace app\commands;
 
 use yii\console\Controller;
+use app\components\console\NotificationComponent;
 
 class NotificationController extends Controller {
 
-    public $date;
-
-    public function optionAliases()
-    {
-        return [
-            'd'=>'date'
-        ];  
-    }
-
-    public function options($actionID)
-    {
-        return [
-            'date'
-        ];
-    }
-
-    public function actionTest() {
-        echo 'ok '.PHP_EOL;
-
-        print_r($this->date);
-    }
-
-
     public function actionSend() {
-        
-    }
-
-    public function actionGet() {
-        
-
-
+        $comp= \Yii::createObject(['class'=>NotificationComponent::class]);
+        $comp->notify();
     }
 }
 
