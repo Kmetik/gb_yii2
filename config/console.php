@@ -14,6 +14,9 @@ $config = [
         '@tests' => '@app/tests',
     ],
     'components' => [
+        'authManager' => [
+            'class'=>'yii\rbac\DbManager'
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -26,6 +29,7 @@ $config = [
             ],
         ],
         'db' => $db,
+        
     ],
     'params' => $params,
     /*
