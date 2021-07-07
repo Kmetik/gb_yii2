@@ -21,6 +21,7 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <?php $this->head() ?>
 </head>
 <body>
@@ -52,8 +53,10 @@ AppAsset::register($this);
                 )
                 . Html::endForm()
                 . '</li>'
-            )
+                ),
+                ['label'=>'Previous Page', 'url'=> Yii::$app->session->getFlash('prevURI')],
         ],
+        
     ]);
     NavBar::end();
     ?>
