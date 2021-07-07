@@ -21,6 +21,7 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <?php $this->head() ?>
 </head>
 <body>
@@ -39,8 +40,8 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Calendar', 'url' => ['/calendar']],
+            ['label' => 'Create Activity', 'url' => ['/activity/create']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
@@ -52,8 +53,10 @@ AppAsset::register($this);
                 )
                 . Html::endForm()
                 . '</li>'
-            )
+                ),
+                ['label'=>'Previous Page', 'url'=> Yii::$app->session->getFlash('prevURI')],
         ],
+        
     ]);
     NavBar::end();
     ?>
