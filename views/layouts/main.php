@@ -21,6 +21,7 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <?php $this->head() ?>
 </head>
 <body>
@@ -38,22 +39,30 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Главная', 'url' => ['/site/index']],
+            ['label' => 'Календарь', 'url' => ['/calendar']],
+            ['label' => 'Добавить событие', 'url' => ['/activity/create']],
+            ['label'=>'Регистрация', 'url'=>['/user/auth/reg'],
+            'visible'=>Yii::$app->user->isGuest
+            ],
+            ['label'=>'Личный кабинет', 'url'=>['/user/'],
+            'visible'=>!Yii::$app->user->isGuest
+            ],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
+                ['label' => 'Войти', 'url' => ['/user/auth/login']]
+             ) : (
                 '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
+                . Html::beginForm(['/user/auth/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Выйти (' . Yii::$app->user->identity->name . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
                 . '</li>'
-            )
+                ),
+                ['label'=>'Предыдущая страница', 'url'=> Yii::$app->session->getFlash('prevURI')],
         ],
+        
     ]);
     NavBar::end();
     ?>

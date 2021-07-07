@@ -1,0 +1,33 @@
+<?php
+use yii\bootstrap\ActiveForm;
+
+/**
+* @var $model \app\models\Activity
+*/
+?>
+
+<h2>Обновление события</h2>
+<div class="row">
+    
+    <div class="col-md-6">
+        <?php $form =ActiveForm::begin();?>
+        <?=$form->field($model, 'title');?>
+        <?=$form->field($model,'dateStart')->input('date');?>
+        <?=$form->field($model,'timeStart')->input('time');?>
+        <?=$form->field($model,'dateFinish')->input('date');?>
+        <?=$form->field($model,'timeFinish')->input('time');?>
+        <?=$form->field($model, 'description')->textarea();?>
+        <?=$form->field($model,'isRepeat')->checkbox();?>
+        <?=$form->field($model,'repeatType')->dropDownList($model::REPEAT_TYPE);?>
+        <?=$form->field($model,'repeatEnd')->input('date');?>
+        <?=$form->field($model, 'isBlocked')->checkbox();?>
+        <?=$form->field($model,'useNotification')->checkbox();?>
+        <?=$form->field($model,'notifyType')->dropDownList($model::NOTIFICATION_TYPE);?>
+        <?=$form->field($model,'userFiles[]')->fileInput(['multiple'=>true,'accept'=>'image/+']);?>
+        <?=$form->field($model,'updateRelations')->checkbox();?>
+        <?=$form->field($model,'active')->checkbox();?>
+        <div class="form-group"><button class="btn btn-primary" type="submit">Изменить</button></div>  
+        <?php ActiveForm::end();?>
+    </div>
+</div>
+
